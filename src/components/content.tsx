@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import type {CatalogBook} from '@/lib/models';
+export function WorkCard({book,index=0}:{book:CatalogBook;index?:number}){return <article className="work-card"><Link href={'/works/'+book.id} className="cover-link"><img src={book.cover} alt={book.title} width={480} height={640} loading={index>3?'lazy':'eager'}/><span className="cover-number">0{index+1}</span></Link><div className="work-card-copy"><h3><Link href={'/works/'+book.id}>{book.title}</Link></h3><p>{book.subtitle}</p><div className="tags">{book.tags.slice(0,2).map(tag=><Link key={tag} href={'/discover?tag='+encodeURIComponent(tag)}>{tag}</Link>)}</div></div></article>;}
+export function SectionHeading({title,href}:{title:string;href?:string}){return <div className="section-heading"><h2>{title}</h2>{href&&<Link href={href}>查看全部 ↗</Link>}</div>;}
+export function EmptyState({title,description}:{title:string;description:string}){return <div className="empty-state"><h2>{title}</h2><p>{description}</p><Link href="/discover" className="text-link">浏览示例目录 ↗</Link></div>;}

@@ -1,0 +1,3 @@
+import Link from 'next/link';
+export const metadata={title:'使用说明'};
+export default function Help(){return <article className="prose-page"><span className="eyebrow">A QUICK START</span><h1>从检索到自己的书架</h1><section><h2>01 / 找一本书</h2><p>输入“夏日”“花园”、作者名或编号“10001”。匹配只发生在本站合成目录，不访问外部网站，也不提供图片识别。</p></section><section><h2>02 / 看详情与收藏</h2><p>打开作品可查看自制封面、作者、标签和目录编号。点击“加入收藏”，再打开“我的收藏”查看结果。</p></section><section><h2>03 / 看背后的流程</h2><p>架构页说明 Next.js 页面、本站 API、PostgreSQL 和 Worker 的关系，并显示当前本地任务状态。</p></section><section><h2>04 / 本地会话</h2><p>无需真实账号、邮箱或密码。会话与当前浏览器关联；清除 Cookie 后会失去访客身份。演示未包含外部 Cookie 导入和账号接入功能。</p></section><Link href="/discover" className="button">开始浏览 ↗</Link></article>;}

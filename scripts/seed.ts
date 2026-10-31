@@ -1,0 +1,3 @@
+import {works,creators} from '../src/server/fixtures';
+import {query,transaction,db} from '../src/server/db';
+await transaction(async()=>{for(const row of creators)await query('INSERT INTO demo_creators(id,body) VALUES(?,?::jsonb) ON CONFLICT(id) DO UPDATE SET body=excluded.body',[row.id,JSON.stringify(row)]);for(const [position,row] of works.entries())await query('INSERT INTO demo_books(id,body,position) VALUES(?,?::jsonb,?) ON CONFLICT(id) DO UPDATE SET body=excluded.body,position=excluded.position',[row.id,JSON.stringify(row),position]);})();await db().close();console.log('Synthetic catalog ready');

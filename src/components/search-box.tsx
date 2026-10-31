@@ -1,0 +1,6 @@
+'use client';
+import {useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {Search,ArrowRight} from 'lucide-react';
+import {api} from '@/lib/api';
+export function SearchBox({initialValue='',compact=false}:{initialValue?:string;compact?:boolean}){const router=useRouter();const [value,setValue]=useState(initialValue);const [busy,setBusy]=useState(false);const [error,setError]=useState('');return <form className={'search-form '+(compact?'compact':'')} onSubmit={async event=>{event.preventDefault();setBusy(true);setError('');try{const job=await api<{id:string}>('searches',{query:value});router.push('/discover?job='+job.id);}catch(error){setError((error as Error).message);}finally{setBusy(false);}}}><label htmlFor={compact?'query-small':'query'}>搜索标题、作者或目录编号</label><div className="search-row"><Search size={20} aria-hidden="true"/><input id={compact?'query-small':'query'} value={value} onChange={e=>setValue(e.target.value)} placeholder="试试：夏日、花园、10001" maxLength={160} required/><button className="button" disabled={busy}>{busy?'检索中':'找一找'}<ArrowRight size={16} aria-hidden="true"/></button></div>{error&&<p role="alert" className="error">{error}</p>}<p className="search-hint">仅检索本站合成目录 · 不访问外部网站</p></form>;}

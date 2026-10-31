@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import {SearchBox} from '@/components/search-box';
+import {WorkCard,SectionHeading} from '@/components/content';
+import {books} from '@/server/catalog';
+export default async function Home(){const items=await books();return <><section className="home-hero"><div className="hero-copy"><span className="eyebrow">A SMALL LIBRARY, A COMPLETE FLOW</span><h1>从一条线索，<br/>找到下一本好书。</h1><p>检索标题、作者与编号，把喜欢的作品留在自己的书架。</p></div><img className="hero-mark" src="/branding/leaf.svg" alt="叶间书库图标" width={150} height={180}/><SearchBox/><div className="hero-foot"><span>8 本合成作品 · 本地目录</span><Link href="/architecture">看看它如何运行 ↗</Link></div></section><section className="catalog-section"><SectionHeading title="翻开示例书架" href="/discover"/><div className="work-grid">{items.map((book,index)=><WorkCard book={book} index={index} key={book.id}/>)}</div></section><section className="flow-intro"><div><span className="eyebrow">BEHIND THE SHELF</span><h2>页面之外，也有完整流程。</h2><p>Next.js 页面与 API，共用 PostgreSQL 数据与后台任务队列。这个演示只处理本站目录，不连接任何外部账户或来源。</p></div><Link className="button secondary" href="/architecture">查看架构说明 ↗</Link></section></>;}
